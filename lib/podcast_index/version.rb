@@ -1,3 +1,3 @@
 module PodcastIndex
-  VERSION = "0.2.1".freeze
+  VERSION = "0.5.0".freeze
 end

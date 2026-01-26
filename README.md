@@ -38,12 +38,16 @@ This client currently implements the following sections of the API:
 * [Episodes](https://podcastindex-org.github.io/docs-api/#tag--Episodes)
 * [Recent](https://podcastindex-org.github.io/docs-api/#tag--Recent)
 * [Value](https://podcastindex-org.github.io/docs-api/#tag--Value)
+* [Categories](https://podcastindex-org.github.io/docs-api/#tag--Categories)
+* [Stats](https://podcastindex-org.github.io/docs-api/#tag--Stats)
 
 These are exposed through the following domain models:
 * [Episode](lib/podcast_index/episode.rb)
 * [Podcast](lib/podcast_index/podcast.rb)
 * [Soundbite](lib/podcast_index/soundbite.rb)
 * [Value](lib/podcast_index/value.rb)
+* [Category](lib/podcast_index/category.rb)
+* [Stats](lib/podcast_index/stats.rb)
 
 The intent is to follow ActiveRecord conventions as reasonably possible.  Therefore, most of the requests are accessed through the model's `.find_by` and `.where` methods.
 
@@ -93,8 +97,6 @@ soundbite = PodcastIndex::Soundbite.where(recent: true)
 soundbite.first.episode_id # => 15082076307
 ```
 
-
-
 ### Supported Methods
 
 ```ruby
@@ -133,6 +135,13 @@ Soundbite.where(recent: true, max: nil)
 # Value
 Value.find_by(feed_id)
 Value.find_by(feed_url)
+
+# Category
+Category.all
+Category.find(category_id)
+
+# Stats
+Stats.current.feed_count_total # => 4316919
 ```
 
 The attributes of the models mirror the names in the API, but have been translated to "underscore" format to more closely follow Ruby conventions.  For example, the `lastUpdateTime` attribute for a `Podcast` is exposed as `last_update_time`.
@@ -148,6 +157,10 @@ rescue PodcastIndex::Error => e
   puts e.message # => "This call requires either a valid `feedid`, `feedurl` or `podcastguid` argument. "
 end
 ```
+
+## Performance
+
+Be aware that this client currently does not cache responses.  So for example, multiple calls to `Category.find()` or `Stats.current` will make multiple API requests.  This may change in the future.
 
 ## Development
 

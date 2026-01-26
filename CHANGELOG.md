@@ -1,5 +1,19 @@
 ## [Unreleased]
 
+## [0.5.0] - 2024-11-08
+
+* Remove gem version restrictions to support Rails 8
+
+## [0.4.0] - 2024-01-21
+
+* Add Categories to API (thanks @lbrito1)
+* Add Category domain model
+* Add stats API and domain model
+
+## [0.3.0] - 2023-09-22
+
+* Add `max` parameter to search requests (thanks @lbrito1)
+
 ## [0.2.1] - 2023-07-06
 
 * Raise exception when `Podcast.find` returns no result ([#6](https://github.com/jasonyork/podcast-index/issues/6))
